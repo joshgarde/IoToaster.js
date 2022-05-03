@@ -6,14 +6,17 @@ const pigpio = require('js-pigpio');
 const MAX_RESTARTS = 5;
 const MAX_TIMEOUT = 10 * 1000;
 
+const PiGPIO = new pigpio();
+
 function main() {
   let restarts = 0;
 
   function onError() {
     // ESTOP
-    const pi = new pigpio();
-    pi.set_mode(17, pi.OUTPUT);
-    pi.write(17, 0);
+    PiGPIO.pi('127.0.0.1', 8888, (err) => {
+      PiGPIO.set_mode(17, PiGPIO.OUTPUT);
+      PiGPIO.write(17, 0);
+    });
 
     if (restarts >= MAX_RESTARTS) return;
 

@@ -6,7 +6,7 @@ const PORT = 8080;
 const MAX_DURATION = 15 * 60 * 1000;
 
 const app = express();
-const pi = new pigpio();
+const PiGPIO = new pigpio();
 
 var heaterEnabled = false;
 var timerEnabled = false;
@@ -46,7 +46,7 @@ app.post('/timer', function (req, res) {
     timerEnabled = false;
     timerEnd = Date.now();
 
-    pi.write(17, 0, (level) => {
+    PiGPIO.write(17, 0, (level) => {
       heaterEnabled = level === 1;
 
       res.json({
@@ -63,7 +63,7 @@ app.post('/timer', function (req, res) {
     timerStart = Date.now();
     timerEnd = Date.now() + duration;
 
-    pi.write(17, 1, (level) => {
+    PiGPIO.write(17, 1, (level) => {
       heaterEnabled = level === 1;
 
       res.json({
@@ -78,18 +78,20 @@ app.post('/timer', function (req, res) {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`[API] Listening on 0.0.0.0:${PORT}`);
-  pi.set_mode(17, pi.OUTPUT);
-  pi.write(17, 0);
+PiGPIO.pi('127.0.0.1', 8888, (err) => {
+  app.listen(PORT, () => {
+    console.log(`[API] Listening on 0.0.0.0:${PORT}`);
+    PiGPIO.set_mode(17, PiGPIO.OUTPUT);
+    PiGPIO.write(17, 0);
 
-  setInterval(timerWorker, 50);
+    setInterval(timerWorker, 50);
+  });
 });
 
 function timerWorker() {
   if (timerEnabled && Date.now() >= timerEnd) {
     timerEnabled = false;
-    pi.write(17, 0, (level) => {
+    PiGPIO.write(17, 0, (level) => {
       heaterEnabled = level === 1;
     });
   }
