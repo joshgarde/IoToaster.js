@@ -14,7 +14,6 @@ function main() {
   function onError() {
     // ESTOP
     PiGPIO.pi('127.0.0.1', 8888, (err) => {
-      PiGPIO.set_mode(17, PiGPIO.OUTPUT);
       PiGPIO.write(17, 0);
     });
 
