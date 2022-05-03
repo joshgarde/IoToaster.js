@@ -83,7 +83,7 @@ app.listen(PORT, () => {
   PiGPIO.pi('127.0.0.1', 8888, (err) => {
     PiGPIO.write(17, 0);
 
-    setInterval(timerWorker, 50);
+    setInterval(timerWorker, 100);
   });
 });
 
