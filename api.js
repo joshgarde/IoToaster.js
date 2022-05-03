@@ -78,6 +78,11 @@ app.post('/timer', function (req, res) {
   }
 });
 
+app.get('/crash', (req, res) => {
+  // Purposefully cause the app to hang
+  while (true);
+});
+
 app.listen(PORT, () => {
   console.log(`[API] Listening on 0.0.0.0:${PORT}`);
   PiGPIO.pi('127.0.0.1', 8888, (err) => {
