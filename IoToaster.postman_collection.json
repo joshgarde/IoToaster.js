@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "f33d839f-d32e-4c58-aea8-aeb30252e09c",
+		"name": "IoToaster.js",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOSTNAME}}:8080/status",
+					"protocol": "http",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"port": "8080",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "enable timer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enable\": true,\n    \"duration\": 10000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOSTNAME}}:8080/timer",
+					"protocol": "http",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"port": "8080",
+					"path": [
+						"timer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "disable timer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"enable\": false,\n    \"duration\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOSTNAME}}:8080/timer",
+					"protocol": "http",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"port": "8080",
+					"path": [
+						"timer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
