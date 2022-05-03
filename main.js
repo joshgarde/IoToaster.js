@@ -36,8 +36,6 @@ function startWatchdog(onError) {
 
   worker.on('error', (err) => {
     console.log(`[Watchdog] Error thrown: ${err}`);
-    clearInterval(timer);
-    onError();
   });
   worker.on('exit', (exitCode) => {
     console.log(`[Watchdog] Thread exited with code: ${exitCode}`);
