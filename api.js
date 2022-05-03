@@ -81,8 +81,12 @@ app.post('/timer', function (req, res) {
 app.listen(PORT, () => {
   console.log(`[API] Listening on 0.0.0.0:${PORT}`);
   PiGPIO.pi('127.0.0.1', 8888, (err) => {
-    PiGPIO.write(17, 0);
+    if (err) {
+      console.log(`[API] PiGPIO error: ${err}`);
+      return;
+    }
 
+    PiGPIO.write(17, 0);
     setInterval(timerWorker, 100);
   });
 });

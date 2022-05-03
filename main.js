@@ -14,6 +14,10 @@ function main() {
   function onError() {
     // ESTOP
     PiGPIO.pi('127.0.0.1', 8888, (err) => {
+      if (err) {
+        console.log(`[Watchdog] PiGPIO error: ${err}`);
+        return;
+      }
       PiGPIO.write(17, 0);
     });
 
